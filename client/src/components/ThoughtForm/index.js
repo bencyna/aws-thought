@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 const ThoughtForm = () => {
+  const fileInput = useRef(null);
   const [formState, setFormState] = useState({
     username: "",
     thought: "",
@@ -13,6 +14,14 @@ const ThoughtForm = () => {
       setFormState({ ...formState, [event.target.name]: event.target.value });
       setCharacterCount(event.target.value.length);
     }
+  };
+
+  const handleImageUpload = (event) => {
+    event.preventDefault();
+    const data = new FormData();
+    data.append("image", fileInput.current.files[0]);
+    // send image file to endpoint with the postImage function
+    // ...
   };
 
   // submit form
@@ -59,6 +68,13 @@ const ThoughtForm = () => {
           className="form-input col-12 "
           onChange={handleChange}
         ></textarea>
+        <label className="form-input col-12  p-1">
+          Add an image to your thought:
+          <input type="file" ref={fileInput} className="form-input p-2" />
+          <button className="btn" onClick={handleImageUpload} type="submit">
+            Upload
+          </button>
+        </label>
         <button className="btn col-12 " type="submit">
           Submit
         </button>
