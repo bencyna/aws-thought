@@ -1,12 +1,12 @@
 import React, { useRef, useState } from "react";
 
 const ThoughtForm = () => {
-  const fileInput = useRef(null);
   const [formState, setFormState] = useState({
     username: "",
     thought: "",
   });
   const [characterCount, setCharacterCount] = useState(0);
+  const fileInput = useRef(null);
 
   // update state based on form input changes
   const handleChange = (event) => {
@@ -20,9 +20,9 @@ const ThoughtForm = () => {
     event.preventDefault();
     const data = new FormData();
     data.append("image", fileInput.current.files[0]);
-
     const postImage = async () => {
       try {
+        console.log("trying");
         const res = await fetch("/api/image-upload", {
           mode: "cors",
           method: "POST",
